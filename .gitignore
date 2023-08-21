@@ -1,0 +1,5 @@
+venv
+pyvenv.cfg
+
+old
+*.png

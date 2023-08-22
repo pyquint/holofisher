@@ -1,4 +1,3 @@
-import cv2
 import mss
 import numpy as np
 import pydirectinput
@@ -9,6 +8,7 @@ with mss.mss() as sct:
                    'w': (225, 50, 50), 's': (52, 144, 245),
                    'a': (244, 196, 66), 'd': (45, 234, 43)}
     region = {"top": 725, "left": 1180, "width": 4, "height": 75}
+    ok_region = {"top": 820, "left": 960, "width": 1, "height": 1}
 
     np_colors = {prompt: np.array(rgb) for (prompt, rgb) in target_rgbs.items()}
     threshold = 10
@@ -25,5 +25,5 @@ with mss.mss() as sct:
             if np.any(diff < threshold):
                 pydirectinput.press(prompt)
 
-        if sct.grab({"top": 820, "left": 960, "width": 1, "height": 1}).rgb == b"\xf9\xf9\xf9":
+        if sct.grab(ok_region).rgb == b"\xf9\xf9\xf9":
             pydirectinput.press('z', 2)
